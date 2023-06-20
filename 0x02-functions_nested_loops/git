@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# The root directory of the Git repository
+repo_root=$(git rev-parse --show-toplevel)
+
+# Loop through each directory in the repository
+for dir in $(find "$repo_root" -type d); do
+  # Navigate to the directory
+  cd "$dir"
+# Here's a shell script that will git add, commit, and push each directory in the repository individually:
+  # Check if the directory is a Git repository
+  if [ -d .git ]; then
+    # Add all changes in the directory
+    git add .
+
+    # Commit the changes with a message that includes the directory path
+    git commit -m "Committing changes in directory $dir"
+
+    # Push the changes to the remote repository
+    git push
+  fi
+
+  # Navigate back to the repository root
+  cd "$repo_root"
+done
+
+# This script will loop through each directory in the repository, checking if it 
